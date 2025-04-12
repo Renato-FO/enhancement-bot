@@ -1,20 +1,31 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 
 const tabelaDevoracoes = [
-    { min: 100, max: 105, valor: 15 },
-    { min: 106, max: 109, valor: 14 },
-    { min: 110, max: 116, valor: 13 },
-    { min: 117, max: 121, valor: 12 },
-    { min: 122, max: 129, valor: 11 },
-    { min: 130, max: 139, valor: 10 },
-    { min: 140, max: 151, valor: 9 },
-    { min: 152, max: 164, valor: 8 },
-    { min: 165, max: 183, valor: 7 },
-    { min: 184, max: 198, valor: 6 },
-    { min: 199, max: 218, valor: 5 },
-    { min: 219, max: 249, valor: 4 },
-    { min: 250, max: 279, valor: 3 },
-    { min: 280, max: 298, valor: 2 },
+    { min: 100, max: 101, valor: 26 },
+    { min: 102, max: 105, valor: 25 },
+    { min: 106, max: 108, valor: 24 },
+    { min: 109, max: 111, valor: 23 },
+    { min: 112, max: 115, valor: 22 },
+    { min: 116, max: 119, valor: 21 },
+    { min: 120, max: 124, valor: 20 },
+    { min: 125, max: 129, valor: 19 },
+    { min: 130, max: 135, valor: 18 },
+    { min: 136, max: 141, valor: 17 },
+    { min: 142, max: 148, valor: 16 },
+    { min: 149, max: 156, valor: 15 },
+    { min: 157, max: 165, valor: 14 },
+    { min: 166, max: 175, valor: 13 },
+    { min: 176, max: 187, valor: 12 },
+    { min: 188, max: 196, valor: 11 },
+    { min: 197, max: 206, valor: 10 },
+    { min: 207, max: 217, valor: 9 },
+    { min: 218, max: 235, valor: 8 },
+    { min: 236, max: 254, valor: 7 },
+    { min: 255, max: 269, valor: 6 },
+    { min: 270, max: 291, valor: 5 },
+    { min: 292, max: 296, valor: 4 },
+    { min: 297, max: 297, valor: 3 },
+    { min: 298, max: 298, valor: 2 },
     { min: 299, max: 299, valor: 1 },
 ];
 
@@ -47,7 +58,6 @@ module.exports = {
         let totalDevoracoes = 0;
         let fs = fsAtual;
 
-        // Modo normal: Calcula devorações para atingir o FS desejado
         while (fs < fsDesejado) {
             const devoracao = tabelaDevoracoes.find(range => fs >= range.min && fs <= range.max);
             if (!devoracao) break;
@@ -56,7 +66,6 @@ module.exports = {
             totalDevoracoes++;
         }
 
-        // Se o usuário informou devorações que possui, calcula até onde chega
         let fsComDevoracoes = fsAtual;
         if (devoracoesPossui !== null) {
             let devoracoesUsadas = 0;

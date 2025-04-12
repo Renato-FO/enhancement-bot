@@ -1,18 +1,14 @@
 const { EmbedBuilder, SlashCommandBuilder } = require('discord.js');
 const axios = require('axios');
 
-// Função de scraping usando Axios e Regex
 async function scrapeMarketData(volume) {
     try {
-        // Fazendo a requisição à API
         const response = await axios.get(
             `https://apiv2.bdolytics.com/pt/SA/market/pearl-items?page=1&sort=${volume}`
         );
 
-        // Extraindo os dados da resposta
-        const items = response.data.data; // Supondo que os dados estejam no campo `data`
+        const items = response.data.data;
 
-        // Pegando apenas os 10 primeiros e extraindo a propriedade `one_day_volume`
         const top10Volumes = items.slice(0, 10).map(item => ({
             name: item.name,
             volume: item[volume.split("_asc")[0]].toString(),
@@ -41,7 +37,6 @@ module.exports = {
                 )),
 
     execute: async (interaction) => {
-        // Fazendo o scraping
         let volume = interaction.options.getString('volume');
         const items = await scrapeMarketData(volume);
         let description;
@@ -50,7 +45,6 @@ module.exports = {
             return message.channel.send('Não consegui encontrar itens. Tente novamente mais tarde.');
         }
 
-        // Criando o conteúdo do Embed com os itens coletados
         const fields = items.map(item => ({ name: item.name, value: item.volume, inline: false }));
 
         switch (volume) {
@@ -65,7 +59,6 @@ module.exports = {
                 break;
         }
 
-        // Construindo o Embed com os itens
         const embed = new EmbedBuilder()
             .setColor('#F7A600')
             .setTitle('Itens de Pérola Mais Vendidos')
@@ -74,7 +67,6 @@ module.exports = {
             .setThumbnail('https://via.placeholder.com/100')
             .setTimestamp();
 
-        // Enviando o Embed para o canal
         interaction.reply({ embeds: [embed] });
     },
 };
